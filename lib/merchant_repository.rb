@@ -1,3 +1,7 @@
+require 'pry'
+require 'csv'
+require 'merchant'
+
 class MerchantRepository
 
   def all

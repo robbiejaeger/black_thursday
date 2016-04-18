@@ -1,8 +1,26 @@
+require 'pry'
+require 'csv'
+
 class Merchant
 
   def intialize({ :id => nil, :name => nil })
-    @id
-    @name
+    @id = :id
+    @name = :name
+  end
+
+  def method_that_gets_id
+
+
+  end
+
+  def method_that_gets_name
+
+
+  end
+
+  def method_that_creates_hash_with_above_methods?
+
+
   end
 
 
