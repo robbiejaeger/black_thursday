@@ -91,6 +91,6 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_items_in_price_range
     items = @ir.find_all_by_price_in_range((500..5000))
 
-  end
+  end`
 
 end

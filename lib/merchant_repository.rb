@@ -1,11 +1,13 @@
 require 'pry'
 require 'csv'
 require_relative 'merchant'
+require_relative 'item_repository'
 
 class MerchantRepository
+
   attr_reader :all_merchants
 
-  def initialize(csv_filepath)
+  def initialize(csv_filepath, sales_engine)
     @merchants = []
     create_merchants(csv_filepath)
   end
@@ -25,6 +27,7 @@ class MerchantRepository
   def find_all_by_name(name)
     @merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
   end
+
 
   private
 
