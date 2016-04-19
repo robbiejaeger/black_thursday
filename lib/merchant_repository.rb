@@ -10,26 +10,16 @@ class MerchantRepository
     create_merchants(csv_filepath)
   end
 
-  def all  #returns an array of all known Merchant instances
+  def all
     @merchants
   end
 
-  def find_by_id(id) ##returns either nil or an instance of Merchant with a matching ID
-    index = @merchants.find_index { |merchant| merchant.id == id }
-    if index != nil
-      @merchants[index]
-    else
-      nil
-    end
+  def find_by_id(id)
+    @merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    index = @merchants.find_index { |merchant| merchant.name.downcase == name.downcase }
-    if index != nil
-      @merchants[index]
-    else
-      nil
-    end
+    @merchants.find { |merchant| merchant.name == name }
   end
 
   def find_all_by_name(name)
