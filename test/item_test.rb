@@ -1,12 +1,12 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/item"
-require "./lib/item_repository"
+require_relative "../lib/item"
+require_relative "../lib/item_repository"
 
 class ItemTest < Minitest::Test
 
   def setup
-    csv_filepath = "./data/items_small.csv"
+    csv_filepath = "./data/items.csv"
     @ir = ItemRepository.new(csv_filepath)
   end
 

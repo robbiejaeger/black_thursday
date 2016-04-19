@@ -1,11 +1,11 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/item_repository"
+require_relative "../lib/item_repository"
 
 class ItemRepositoryTest < Minitest::Test
 
   def setup
-    csv_filepath = "./data/items_small.csv"
+    csv_filepath = "./data/items.csv"
     @ir = ItemRepository.new(csv_filepath)
   end
 
@@ -54,7 +54,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_items_by_description_string
     items = @ir.find_all_with_description("two")
 
-    assert_equal 3, items.count
+    assert_equal 65, items.count
   end
 
   def test_find_by_description_returns_empty_array_for_bad_description
@@ -64,10 +64,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal 0, items.count
   end
 
-  def test_find_all_by_merchant_id_can_find_some
+  def test_find_all_by_merchant_id_can_find_merchants
     items = @ir.find_all_by_merchant_id(12334185)
 
-    assert_equal 3, items.count
+    assert_equal 6, items.count
   end
 
   def test_find_by_merchant_id_returns_empty_array_for_bad_id
@@ -78,9 +78,8 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_can_find_items_by_price
     items = @ir.find_all_by_price(50000)
-    price = items.map{|item| item.unit_price_to_dollars}
 
-    assert_equal [50000, 50000], price
+    assert_equal 11, items.count
   end
 
   def test_returns_empty_array_for_no_items_with_a_price
