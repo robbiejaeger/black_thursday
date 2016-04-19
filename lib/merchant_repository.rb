@@ -1,10 +1,17 @@
 require 'pry'
 require 'csv'
-require 'merchant'
+# require 'merchant'
 
 class MerchantRepository
 
+# @contents = CSV.open 'merchants.csv', headers: true, header_converters: :symbol
+
   def all
+    merchants = []
+    lines = File.readlines "./data/merchants.csv"
+    lines.each do |line|
+      merchants << lines
+    end
     #returns an array of all known Merchant instances
   end
 
@@ -24,3 +31,6 @@ class MerchantRepository
     # case insensitive
   end
 end
+
+merch = MerchantRepository.new
+merch.all

@@ -8,12 +8,12 @@ class Merchant
     @name = :name
   end
 
-  def method_that_gets_id
+  def method_that_gets_id(id)
 
 
   end
 
-  def method_that_gets_name
+  def method_that_gets_name(name)
 
 
   end
