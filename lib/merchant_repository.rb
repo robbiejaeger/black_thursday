@@ -3,10 +3,11 @@ require 'csv'
 require_relative 'merchant'
 
 class MerchantRepository
-  attr_reader :all_merchants
+  attr_reader :merchants, :sales_engine_object
 
-  def initialize(csv_filepath)
+  def initialize(csv_filepath, sales_engine_object)
     @merchants = []
+    @sales_engine_object = sales_engine_object
     create_merchants(csv_filepath)
   end
 
@@ -55,6 +56,6 @@ class MerchantRepository
   end
 
   def add_merchant(merchant_creation_hash)
-    @merchants << Merchant.new(merchant_creation_hash)
+    @merchants << Merchant.new(merchant_creation_hash, self)
   end
 end
