@@ -3,25 +3,14 @@ require 'csv'
 
 class Merchant
 
-  def intialize({ :id => nil, :name => nil })
-    @id = :id
-    @name = :name
+attr_reader :id, :name
+
+  def initialize(merchant_hash)
+    merchant_hash = merchant_hash
+    @id = merchant_hash[:id].to_i
+    @name = merchant_hash[:name]
   end
 
-  def method_that_gets_id(id)
-
-
-  end
-
-  def method_that_gets_name(name)
-
-
-  end
-
-  def method_that_creates_hash_with_above_methods?
-
-
-  end
 
 
   # The merchant is one of the critical concepts in our
