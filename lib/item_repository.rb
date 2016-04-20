@@ -3,9 +3,10 @@ require_relative '../lib/item'
 
 class ItemRepository
 
-  attr_reader :items
+  attr_reader :items, :sales_engine_object
 
-  def initialize(csv_filepath)
+  def initialize(csv_filepath, sales_engine_object)
+    @sales_engine_object = sales_engine_object
     @items = []
     create_items(csv_filepath)
   end
@@ -73,7 +74,7 @@ private
   end
 
   def add_item(item_creation_hash)
-    @items << Item.new(item_creation_hash)
+    @items << Item.new(item_creation_hash, self)
   end
 
 end
