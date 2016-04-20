@@ -6,8 +6,8 @@ class Item
 
   attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
 
-  def initialize(item_hash, item_repository_hash)
-    @item_repository_hash = item_repository_hash
+  def initialize(item_hash, item_repository_object)
+    @item_repository_object = item_repository_object
     item_hash = item_hash
     @id = item_hash[:id].to_i
     @name = item_hash[:name]
@@ -20,6 +20,10 @@ class Item
 
   def unit_price_to_dollars
     @unit_price.to_f
+  end
+
+  def merchant
+    @item_repository_object.sales_engine_object.merchants.find_by_id(merchant_id)
   end
 
 end
