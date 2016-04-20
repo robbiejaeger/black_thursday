@@ -24,7 +24,7 @@ class ItemRepository
   end
 
   def find_all_with_description(string)
-    @items.find_all {|item| item.description.include?(string)}
+    @items.find_all {|item| item.description.downcase.include?(string.downcase)}
   end
 
   def find_all_by_price(price)
@@ -75,6 +75,10 @@ private
 
   def add_item(item_creation_hash)
     @items << Item.new(item_creation_hash, self)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

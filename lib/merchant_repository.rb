@@ -21,7 +21,7 @@ class MerchantRepository
   end
 
   def find_by_name(name)
-    @merchants.find { |merchant| merchant.name == name }
+    @merchants.find { |merchant| merchant.name.downcase == name.downcase }
   end
 
   def find_all_by_name(name)
@@ -58,6 +58,10 @@ class MerchantRepository
 
   def add_merchant(merchant_creation_hash)
     @merchants << Merchant.new(merchant_creation_hash, self)
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
 end

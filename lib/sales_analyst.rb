@@ -18,25 +18,26 @@ class SalesAnalyst
   end
 
   def merchants_with_high_item_count
+    avg = average_items_per_merchant
     stdev = average_items_per_merchant_standard_deviation
     @sales_engine.merchants.all.find_all do |merchant|
-      merchant.items.count > (1 + stdev)
+      merchant.items.count > (avg + stdev)
     end
   end
 
   def average_item_price_for_merchant(merchant_id)
     merchant = @sales_engine.merchants.find_by_id(merchant_id)
     item_count = 0
-    merchant.items.map do |item|
+    (merchant.items.map do |item|
       item_count += 1
       item.unit_price
-    end.reduce(:+)/item_count
+    end.reduce(:+)/item_count).round(2)
   end
 
   def average_average_price_per_merchant
-    @sales_engine.merchants.all.map do |merchant|
+    (@sales_engine.merchants.all.map do |merchant|
       average_item_price_for_merchant(merchant.id)
-    end.reduce(:+)/@sales_engine.merchants.all.count
+    end.reduce(:+)/@sales_engine.merchants.all.count).round(2)
   end
 
   def golden_items
