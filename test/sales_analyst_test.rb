@@ -49,4 +49,22 @@ class SalesAnalystTest < Minitest::Test
     assert avg_avg_price.kind_of?(BigDecimal)
   end
 
+  def test_can_find_average_price_of_all_items
+    avg_item_price = @sa.average_item_price
+
+    assert avg_item_price.kind_of?(BigDecimal)
+  end
+
+  def test_can_get_stdev_of_item_price
+    stdev_item_price = @sa.item_price_standard_deviation
+
+    assert stdev_item_price.kind_of?(Float)
+  end
+
+  def test_can_get_golden_items
+    golden_items = @sa.golden_items
+
+    assert_equal 5, golden_items.count
+  end
+
 end
