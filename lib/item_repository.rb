@@ -77,4 +77,7 @@ private
     @items << Item.new(item_creation_hash, self)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end

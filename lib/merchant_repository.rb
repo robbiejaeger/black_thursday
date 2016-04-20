@@ -60,4 +60,7 @@ class MerchantRepository
     @merchants << Merchant.new(merchant_creation_hash, self)
   end
 
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
 end
