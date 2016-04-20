@@ -46,7 +46,6 @@ class SalesAnalystTest < Minitest::Test
   def test_can_find_average_of_average_price_per_merchant
     avg_avg_price = @sa.average_average_price_per_merchant
 
-    puts avg_avg_price.to_i
     assert avg_avg_price.kind_of?(BigDecimal)
   end
 

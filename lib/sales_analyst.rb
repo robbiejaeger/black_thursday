@@ -39,4 +39,6 @@ class SalesAnalyst
     end.reduce(:+)/@sales_engine.merchants.all.count
   end
 
+  
+
 end
