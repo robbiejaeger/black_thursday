@@ -6,7 +6,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def setup
     csv_filepath = "./data/items.csv"
-    @ir = ItemRepository.new(csv_filepath)
+    @ir = ItemRepository.new(csv_filepath, nil)
   end
 
   def test_item_repository_can_exist
