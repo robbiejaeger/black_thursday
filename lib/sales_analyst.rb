@@ -33,4 +33,10 @@ class SalesAnalyst
     end.reduce(:+)/item_count
   end
 
+  def average_average_price_per_merchant
+    @sales_engine.merchants.all.map do |merchant|
+      average_item_price_for_merchant(merchant.id)
+    end.reduce(:+)/@sales_engine.merchants.all.count
+  end
+
 end
