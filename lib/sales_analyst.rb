@@ -25,6 +25,12 @@ class SalesAnalyst
   end
 
   def average_item_price_for_merchant(merchant_id)
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+    item_count = 0
+    merchant.items.map do |item|
+      item_count += 1
+      item.unit_price
+    end.reduce(:+)/item_count
   end
 
 end

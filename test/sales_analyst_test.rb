@@ -37,4 +37,10 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 85, merchs.count
   end
 
+  def test_can_find_average_item_price_for_merchant
+    avg_price = @sa.average_item_price_for_merchant(12334105)
+
+    assert avg_price.kind_of?(BigDecimal)
+  end
+
 end
