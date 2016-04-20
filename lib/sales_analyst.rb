@@ -14,7 +14,7 @@ class SalesAnalyst
     avg = average_items_per_merchant
     Math.sqrt(@sales_engine.merchants.all.map do |merchant|
       (merchant.items.count - avg) ** 2
-    end.reduce(:+)/@sales_engine.merchants.all.count.to_f).round(2)
+    end.reduce(:+)/(@sales_engine.merchants.all.count.to_f-1)).round(2)
   end
 
   def merchants_with_high_item_count
@@ -39,6 +39,23 @@ class SalesAnalyst
     end.reduce(:+)/@sales_engine.merchants.all.count
   end
 
-  
+  def golden_items
+    stdev = item_price_standard_deviation
+    avg = average_item_price
+    @sales_engine.items.all.find_all {|item| item.unit_price > (avg + 2*stdev)}
+  end
+
+  def item_price_standard_deviation
+    avg = average_item_price
+    Math.sqrt(@sales_engine.items.all.map do |item|
+      (item.unit_price - avg) ** 2
+    end.reduce(:+)/(@sales_engine.items.all.count - 1))
+  end
+
+  def average_item_price
+    @sales_engine.items.all.map do |item|
+      item.unit_price
+    end.reduce(:+)/@sales_engine.items.all.count
+  end
 
 end
