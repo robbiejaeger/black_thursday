@@ -16,6 +16,10 @@ class MerchantRepository
     @merchants
   end
 
+  def find_items_by_merchant_id(id)
+    @sales_engine_object.find_items_by_merchant_id(id)
+  end
+
   def find_by_id(id)
     @merchants.find { |merchant| merchant.id == id }
   end
@@ -26,6 +30,10 @@ class MerchantRepository
 
   def find_all_by_name(name)
     @merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
+  end
+
+  def find_all_invoices_by_merchant_id(id)
+    @sales_engine_object.find_all_invoices_by_merchant_id(id)
   end
 
   private

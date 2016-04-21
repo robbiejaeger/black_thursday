@@ -14,4 +14,17 @@ class SalesEngine
   def self.from_csv(hash)
     SalesEngine.new(hash)
   end
+
+  def find_items_by_merchant_id(id)
+    @items.find_all_by_merchant_id(id)
+  end
+
+  def find_all_invoices_by_merchant_id(id)
+    @invoices.find_all_by_merchant_id(id)
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    @merchants.find_by_id(merchant_id)
+  end
+
 end
