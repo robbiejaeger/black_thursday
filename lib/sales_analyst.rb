@@ -59,4 +59,8 @@ class SalesAnalyst
     end.reduce(:+)/@sales_engine.items.all.count
   end
 
+  def average_invoices_per_merchant
+    (@sales_engine.invoices.all.count.to_f / @sales_engine.merchants.all.count).round(2)
+  end
+
 end
