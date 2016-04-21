@@ -27,6 +27,10 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
   end
 
+  def find_all_by_status(status)
+    @invoices.find_all { |invoice| invoice.status.downcase == status.downcase }
+  end
+
   private
 
     def create_invoices(csv_filepath)

@@ -28,7 +28,11 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_find_all_by_merchant_id
     assert_equal [], @ir.find_all_by_merchant_id(2139875)
-    assert_equal 16 ,@ir.find_all_by_merchant_id(12335938).count 
+    assert_equal 16 ,@ir.find_all_by_merchant_id(12335938).count
   end
 
+  def test_find_all_by_status
+    assert_equal [], @ir.find_all_by_status(:potato)
+    assert_equal 1473, @ir.find_all_by_status(:pending).count
+  end
 end
