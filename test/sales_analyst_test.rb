@@ -84,8 +84,12 @@ class SalesAnalystTest < Minitest::Test
     assert (Array), @sa.bottom_merchants_by_invoice_count
   end
 
-  def test_can_something
+  def test_can_get_top_days_by_invoice_count
     assert_equal ["Wednesday"], @sa.top_days_by_invoice_count
+  end
+
+  def test_can_get_invoice_status_percentages
+    assert_equal 56.95, @sa.invoice_status(:shipped)
   end
 
 end
