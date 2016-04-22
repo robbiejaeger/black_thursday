@@ -86,15 +86,6 @@ class SalesAnalyst
     end
   end
 
-  def avg_invoices_per_day
-    min_day = @sales_engine.invoices.all.min_by { |invoice| invoice.created_at }
-    max_day = @sales_engine.invoices.all.max_by { |invoice| invoice.created_at }
-    total_days = (max_day.created_at - min_day.created_at).to_i / (24 * 60 * 60)
-    total_invoices = @sales_engine.invoices.all.count
-
-    total_invoices / total_days
-  end
-
   def set_of_invoices_by_day
     monday = @sales_engine.invoices.all.count{ |invoice| invoice.created_at.strftime("%A").downcase == "monday" }
     tuesday = @sales_engine.invoices.all.count{ |invoice| invoice.created_at.strftime("%A").downcase == "tuesday" }
@@ -104,7 +95,15 @@ class SalesAnalyst
     saturday = @sales_engine.invoices.all.count{ |invoice| invoice.created_at.strftime("%A").downcase == "saturday" }
     sunday = @sales_engine.invoices.all.count{ |invoice| invoice.created_at.strftime("%A").downcase == "sunday" }
 
-  { "Monday" => monday, "Tuesday" => tuesday, "Wednesday" => wednesday, "Thursday" => thursday, "Friday" => friday, "Saturday" => saturday, "Sunday" => sunday}
+    {"Monday" => monday, "Tuesday" => tuesday, "Wednesday" => wednesday, "Thursday" => thursday, "Friday" => friday, "Saturday" => saturday, "Sunday" => sunday}
+  end
+
+  def avg_invoices_per_day
+    avg_sum = 0
+    set_of_invoices_by_day.each do |day, num|
+      avg_sum += num
+    end
+    avg_sum/7
   end
 
   def standard_deviation_invoices_per_day
@@ -120,7 +119,7 @@ class SalesAnalyst
     std_dev = standard_deviation_invoices_per_day
     avg = avg_invoices_per_day
     set_of_invoices_by_day.select do |day, num|
-      num > std_dev + avg
+      num > (std_dev + avg)
     end.map {|array| array[0] }
   end
 end
