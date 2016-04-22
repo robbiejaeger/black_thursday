@@ -69,31 +69,27 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_get_avg_invoices_per_merchant
-
     assert_equal 10.49, @sa.average_invoices_per_merchant
   end
 
   def test_can_get_average_invoices_per_merchant_standard_deviation
-
     assert_equal  3.29, @sa.average_invoices_per_merchant_standard_deviation
   end
 
   def test_can_get_top_merchants_by_invoice_count
-
     assert (Array), @sa.top_merchants_by_invoice_count
   end
 
   def test_can_get_bottom_merchants_by_invoice_count
-
     assert (Array), @sa.bottom_merchants_by_invoice_count
   end
 
-  def test_can_something
-
-  @sa.top_days_by_invoice_count
-end
-
-  def test_ss
-    puts @sa.set_of_invoices_by_day
+  def test_can_get_top_days_by_invoice_count
+    assert_equal ["Wednesday"], @sa.top_days_by_invoice_count
   end
+
+  def test_can_get_invoice_status_percentages
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+  end
+
 end
