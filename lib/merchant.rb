@@ -13,6 +13,11 @@ attr_reader :id, :name
   end
 
   def items
-    @merchant_repository_object.sales_engine_object.items.find_all_by_merchant_id(id)
+    @merchant_repository_object.find_items_by_merchant_id(self.id)
   end
+
+  def invoices
+    @merchant_repository_object.find_all_invoices_by_merchant_id(self.id)
+  end
+
 end

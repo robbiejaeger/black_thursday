@@ -23,7 +23,7 @@ class Item
   end
 
   def merchant
-    @item_repository_object.sales_engine_object.merchants.find_by_id(merchant_id)
+    @item_repository_object.find_merchant_by_merchant_id(self.merchant_id)
   end
 
 end

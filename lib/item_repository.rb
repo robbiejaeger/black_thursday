@@ -39,6 +39,10 @@ class ItemRepository
     @items.find_all {|item| item.merchant_id == merchant_id}
   end
 
+  def find_merchant_by_merchant_id(merchant_id)
+    @sales_engine_object.find_merchant_by_merchant_id(merchant_id)
+  end
+
 private
 
   def create_items(csv_filepath)

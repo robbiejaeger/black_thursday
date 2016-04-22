@@ -9,6 +9,7 @@ class SalesAnalystTest < Minitest::Test
   def setup
     se = SalesEngine.from_csv({
       :items     => "./data/items.csv",
+      :invoices  => "./data/invoices.csv",
       :merchants => "./data/merchants.csv",
     })
 
@@ -34,7 +35,7 @@ class SalesAnalystTest < Minitest::Test
   def test_can_get_merchants_with_high_item_count
     merchs = @sa.merchants_with_high_item_count
 
-    assert_equal 85, merchs.count
+    assert_equal 52, merchs.count
   end
 
   def test_can_find_average_item_price_for_merchant
@@ -67,4 +68,32 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 5, golden_items.count
   end
 
+  def test_can_get_avg_invoices_per_merchant
+
+    assert_equal 10.49, @sa.average_invoices_per_merchant
+  end
+
+  def test_can_get_average_invoices_per_merchant_standard_deviation
+
+    assert_equal  3.29, @sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_can_get_top_merchants_by_invoice_count
+
+    assert (Array), @sa.top_merchants_by_invoice_count
+  end
+
+  def test_can_get_bottom_merchants_by_invoice_count
+
+    assert (Array), @sa.bottom_merchants_by_invoice_count
+  end
+
+  def test_can_something
+
+  @sa.top_days_by_invoice_count
+end
+
+  def test_ss
+    puts @sa.set_of_invoices_by_day
+  end
 end
