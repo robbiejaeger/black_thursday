@@ -18,7 +18,7 @@ class Invoice
    end
 
    def merchant
-
+     @invoice_repository_object.find_merchant_by_merchant_id(self.merchant_id)
    end
 
 

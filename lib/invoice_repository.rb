@@ -31,6 +31,11 @@ class InvoiceRepository
     @invoices.find_all { |invoice| invoice.status.downcase == status.downcase }
   end
 
+  def find_merchant_by_merchant_id(merchant_id)
+    @sales_engine_object.find_merchant_by_merchant_id(merchant_id)
+  end
+
+
   private
 
     def create_invoices(csv_filepath)
