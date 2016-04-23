@@ -11,6 +11,8 @@ class SalesEngine
     @invoices = InvoiceRepository.new(hash[:invoices], self)
     @merchants = MerchantRepository.new(hash[:merchants], self)
     @invoice_items = InvoiceItemRepository.new(hash[:invoice_items], self)
+    @transactions = TransactionRepository.new(hash[:transactions], self)
+    @customers = CustomerRepository.new(hash[:customers], self)
   end
 
   def self.from_csv(hash)
