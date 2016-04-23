@@ -27,8 +27,5 @@ class CustomerRepositoryTest < Minitest::Test
   def test_find_all_by_last_name
     assert_equal 0, @cr.find_all_by_last_name("Aversano").count
     assert_equal 5, @cr.find_all_by_last_name("Wyman").count
-
   end
-
-
 end
