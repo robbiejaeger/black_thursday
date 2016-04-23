@@ -18,4 +18,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert @itr.all[0].kind_of?(InvoiceItem)
   end
 
+  def test_can_find_invoice_item_by_id
+    assert_equal 1, @itr.find_by_id(1).id
+  end
+
+  def test_can_find_invoice_item_by_item_id
+    assert_equal 164, @itr.find_all_by_item_id(263519844).count
+  end
+
+  def test_can_find_all_by_invoice_id
+    assert_equal 4, @itr.find_all_by_invoice_id(2).count
+  end
+
 end
