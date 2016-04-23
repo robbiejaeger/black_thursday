@@ -1,3 +1,6 @@
+require "csv"
+require_relative "../lib/invoice_item"
+
 class InvoiceItemRepository
 
   attr_reader :invoice_items, :sales_engine_object
@@ -12,7 +15,7 @@ class InvoiceItemRepository
     @invoice_items
   end
 
-private
+  private
 
   def create_invoice_items(csv_filepath)
     parse_csv_data(csv_filepath)
@@ -30,6 +33,7 @@ private
       updated_at = row[:updated_at]
 
       create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price, created_at, updated_at)
+    end
   end
 
   def create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price, created_at, updated_at)
@@ -45,13 +49,12 @@ private
     add_invoice_item(invoice_item_creation_hash)
   end
 
-  def add_invoice_items(invoice_creation_hash)
-    @invoices << InvoiceItem.new(invoice_item_creation_hash, self)
+  def add_invoice_item(invoice_item_creation_hash)
+    @invoice_items << InvoiceItem.new(invoice_item_creation_hash, self)
   end
 
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
-
 
 end
