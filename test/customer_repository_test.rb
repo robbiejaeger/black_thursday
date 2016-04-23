@@ -19,8 +19,16 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "Constance", @cr.find_by_id(22).first_name
   end
 
-  def test_find_all_by_name
-    assert_equal 2, @cr.find_all_by_first_name("woodrow").count
+  def test_find_all_by_first_name
+    assert_equal 0, @cr.find_all_by_first_name("zabka").count
+    assert_equal 2, @cr.find_all_by_first_name("Woodrow").count
   end
+
+  def test_find_all_by_last_name
+    assert_equal 0, @cr.find_all_by_last_name("Aversano").count
+    assert_equal 5, @cr.find_all_by_last_name("Wyman").count
+
+  end
+
 
 end

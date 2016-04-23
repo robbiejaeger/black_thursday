@@ -23,6 +23,10 @@ class CustomerRepository
     @customers.find_all { |name| name.first_name.downcase == first_name.downcase }
   end
 
+  def find_all_by_last_name(last_name)
+    @customers.find_all { |name| name.last_name.downcase == last_name.downcase }
+  end
+
   private
 
     def create_customers(csv_filepath)
@@ -58,6 +62,6 @@ class CustomerRepository
     end
 
     def inspect
-      "#<#{self.class} #{@merchants.size} rows>"
+      "#<#{self.class} #{@customers.size} rows>"
     end
 end
