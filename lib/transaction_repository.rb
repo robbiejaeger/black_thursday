@@ -73,14 +73,4 @@ class TransactionRepository
       "#<#{self.class} #{@transactions.size} rows>"
     end
 
-
-
-
-
-
-
-
-
-
-
 end
