@@ -27,7 +27,7 @@ class InvoiceItemRepository
     @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
   end
 
-  private
+private
 
   def create_invoice_items(csv_filepath)
     parse_csv_data(csv_filepath)

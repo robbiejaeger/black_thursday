@@ -29,39 +29,39 @@ class CustomerRepository
 
   private
 
-    def create_customers(csv_filepath)
-      parse_csv_data(csv_filepath)
-    end
+  def create_customers(csv_filepath)
+    parse_csv_data(csv_filepath)
+  end
 
-    def parse_csv_data(csv_filepath)
-      contents = CSV.open(csv_filepath, headers: true, header_converters: :symbol)
-      contents.each do |row|
-        id = row[:id]
-        first_name = row[:first_name]
-        last_name = row[:last_name]
-        created_at = row[:created_at]
-        updated_at = row[:updated_at]
+  def parse_csv_data(csv_filepath)
+    contents = CSV.open(csv_filepath, headers: true, header_converters: :symbol)
+    contents.each do |row|
+      id = row[:id]
+      first_name = row[:first_name]
+      last_name = row[:last_name]
+      created_at = row[:created_at]
+      updated_at = row[:updated_at]
 
-        create_customer_hash(id, first_name, last_name, created_at, updated_at)
-      end
+      create_customer_hash(id, first_name, last_name, created_at, updated_at)
     end
+  end
 
-    def create_customer_hash(id, first_name, last_name, created_at, updated_at)
-      customer_creation_hash = {}
-      customer_creation_hash[:id] = id
-      customer_creation_hash[:first_name] = first_name
-      customer_creation_hash[:last_name] = last_name
-      customer_creation_hash[:created_at] = created_at
-      customer_creation_hash[:updated_at] = updated_at
-      customer_creation_hash
-      add_customer(customer_creation_hash)
-    end
+  def create_customer_hash(id, first_name, last_name, created_at, updated_at)
+    customer_creation_hash = {}
+    customer_creation_hash[:id] = id
+    customer_creation_hash[:first_name] = first_name
+    customer_creation_hash[:last_name] = last_name
+    customer_creation_hash[:created_at] = created_at
+    customer_creation_hash[:updated_at] = updated_at
+    customer_creation_hash
+    add_customer(customer_creation_hash)
+  end
 
-    def add_customer(customer_creation_hash)
-      @customers << Customer.new(customer_creation_hash, self)
-    end
+  def add_customer(customer_creation_hash)
+    @customers << Customer.new(customer_creation_hash, self)
+  end
 
-    def inspect
-      "#<#{self.class} #{@customers.size} rows>"
-    end
+  def inspect
+    "#<#{self.class} #{@customers.size} rows>"
+  end
 end

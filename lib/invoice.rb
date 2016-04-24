@@ -21,7 +21,8 @@ class Invoice
      @invoice_repository_object.find_merchant_by_merchant_id(self.merchant_id)
    end
 
-
-
+   def items
+     @invoice_repository_object.find_invoice_items_by_id(self.id)
+   end
 
 end

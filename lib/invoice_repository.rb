@@ -35,6 +35,9 @@ class InvoiceRepository
     @sales_engine_object.find_merchant_by_merchant_id(merchant_id)
   end
 
+  def find_invoice_items_by_id(id)
+    @sales_engine_object.find_invoice_items_by_id(id)
+  end
 
   private
 
