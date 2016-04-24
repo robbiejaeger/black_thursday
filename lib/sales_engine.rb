@@ -39,4 +39,8 @@ class SalesEngine
     end
   end
 
+  def find_transactions_by_invoice_id(id)
+    @transactions.find_all_by_invoice_id(id)
+  end
+
 end

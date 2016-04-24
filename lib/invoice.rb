@@ -25,4 +25,8 @@ class Invoice
      @invoice_repository_object.find_invoice_items_by_id(self.id)
    end
 
+   def transactions
+     @invoice_repository_object.find_transactions_by_invoice_id(self.id)
+   end
+
 end
