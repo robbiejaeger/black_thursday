@@ -140,4 +140,5 @@ class SalesAnalyst
       (total_invoices_returned.to_f/total_invoices*100).round(2)
     end
   end
+  
 end

@@ -1,6 +1,3 @@
-require 'pry'
-require "bigdecimal"
-require "bigdecimal/util"
 require "time"
 
 class Invoice

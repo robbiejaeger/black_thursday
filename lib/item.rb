@@ -8,7 +8,6 @@ class Item
 
   def initialize(item_hash, item_repository_object)
     @item_repository_object = item_repository_object
-    item_hash = item_hash
     @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]
