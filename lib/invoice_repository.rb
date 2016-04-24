@@ -43,6 +43,10 @@ class InvoiceRepository
     @sales_engine_object.find_transactions_by_invoice_id(id)
   end
 
+  def find_customer_by_customer_id(customer_id)
+    @sales_engine_object.find_customer_by_customer_id(customer_id)
+  end
+
   private
 
     def create_invoices(csv_filepath)
