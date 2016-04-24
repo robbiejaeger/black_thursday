@@ -30,4 +30,12 @@ class Invoice
      @invoice_repository_object.find_customer_by_customer_id(self.customer_id)
    end
 
+   def is_paid_in_full?
+     transactions.any? {|transaction| transaction.result == "success"}
+   end
+
+   def total
+     @invoice_repository_object.sum_all_items_and_quanities(self.id)
+   end
+
 end

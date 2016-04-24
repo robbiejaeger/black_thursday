@@ -63,4 +63,12 @@ class SalesEngine
     end.uniq{|merchant| merchant.id}
   end
 
+  def sum_all_items_and_quanities(id)
+    @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      [invoice_item.unit_price, invoice_item.quantity]
+    end.map do |array|
+      array[0] * array[1]
+    end.reduce(:+)
+  end
+
 end
