@@ -27,6 +27,10 @@ class CustomerRepository
     @customers.find_all { |name| name.last_name.downcase.include?(last_name.downcase) }
   end
 
+  def find_all_merchants_by_customer_id(id)
+    @sales_engine_object.find_all_merchants_by_customer_id(id)
+  end
+
   private
 
   def create_customers(csv_filepath)

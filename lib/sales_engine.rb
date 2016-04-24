@@ -57,4 +57,10 @@ class SalesEngine
     end.uniq{|customer| customer.id}
   end
 
+  def find_all_merchants_by_customer_id(id)
+    @invoices.find_all_by_customer_id(id).map do |invoice|
+      @merchants.find_by_id(invoice.merchant_id)
+    end.uniq{|merchant| merchant.id}
+  end
+
 end

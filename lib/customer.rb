@@ -14,7 +14,8 @@ class Customer
     @updated_at = Time.parse(customer_hash[:updated_at])
   end
 
-
-
+  def merchants
+    @customer_repository_object.find_all_merchants_by_customer_id(self.id)
+  end
 
 end
