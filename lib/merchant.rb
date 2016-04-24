@@ -20,4 +20,8 @@ attr_reader :id, :name
     @merchant_repository_object.find_all_invoices_by_merchant_id(self.id)
   end
 
+  def customers
+    @merchant_repository_object.find_all_customers_for_merchant(self.id)
+  end
+
 end

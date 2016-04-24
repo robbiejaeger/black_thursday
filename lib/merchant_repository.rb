@@ -36,6 +36,10 @@ class MerchantRepository
     @sales_engine_object.find_all_invoices_by_merchant_id(id)
   end
 
+  def find_all_customers_for_merchant(id)
+    @sales_engine_object.find_all_customers_for_merchant(id)
+  end
+
   private
 
   def create_merchants(csv_filepath)
