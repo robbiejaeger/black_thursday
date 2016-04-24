@@ -1,3 +1,5 @@
+require 'time'
+
 class SalesAnalyst
 
   attr_reader :sales_engine
@@ -140,5 +142,31 @@ class SalesAnalyst
       (total_invoices_returned.to_f/total_invoices*100).round(2)
     end
   end
-  
+
+  def total_revenue_by_date(date)
+    invoices = @sales_engine.invoices.all.find_all {|invoice| invoice.created_at.strftime("%Y-%m-%d") == date.strftime("%Y-%m-%d")}
+    invoices.map do |invoice|
+      invoice.total
+    end.reduce(:+)
+  end
+
+  def top_revenue_earners(x = 20)
+    all_merchants = @sales_engine.merchants.all
+
+    merchant_invoices = all_merchants.map do |merchant|
+      merchant.invoices
+    end
+
+    merchant_revenue = merchant_invoices.map do |invoices|
+      invoices.map do |invoice|
+        invoice.total
+      end.reduce(:+)
+    end
+
+    merchant_revenue_in_order = all_merchants.zip(merchant_revenue).sort_by {|a| a[1]}.reverse[0...x]
+    merchant_revenue_in_order.map do |array|
+      array[0]
+    end
+  end
+
 end
