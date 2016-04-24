@@ -15,4 +15,8 @@ class Transaction
     @updated_at = Time.parse(transaction_hash[:updated_at])
   end
 
+  def invoice
+    @transaction_repository_object.find_invoice_by_invoice_id(self.invoice_id)
+  end
+
 end

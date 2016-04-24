@@ -31,6 +31,10 @@ class TransactionRepository
     @transactions.find_all { |transaction| transaction.result == result }
   end
 
+  def find_invoice_by_invoice_id(invoice_id)
+    @sales_engine_object.find_invoice_by_invoice_id(invoice_id)
+  end
+
   private
 
     def create_transactions(csv_filepath)
