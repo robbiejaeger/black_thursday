@@ -35,7 +35,11 @@ class Invoice
    end
 
    def total
-     @invoice_repository_object.sum_all_items_and_quanities(self.id)
+     if is_paid_in_full?
+       @invoice_repository_object.sum_all_items_and_quanities(self.id)
+     else
+       0
+     end
    end
 
 end
