@@ -47,6 +47,10 @@ class InvoiceRepository
     @sales_engine_object.find_customer_by_customer_id(customer_id)
   end
 
+  def sum_all_items_and_quanities(id)
+    @sales_engine_object.sum_all_items_and_quanities(id)
+  end
+
   private
 
   def create_invoices(csv_filepath)
