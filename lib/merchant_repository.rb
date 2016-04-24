@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 require_relative 'merchant'
 
@@ -34,6 +33,10 @@ class MerchantRepository
 
   def find_all_invoices_by_merchant_id(id)
     @sales_engine_object.find_all_invoices_by_merchant_id(id)
+  end
+
+  def find_all_customers_for_merchant(id)
+    @sales_engine_object.find_all_customers_for_merchant(id)
   end
 
   private

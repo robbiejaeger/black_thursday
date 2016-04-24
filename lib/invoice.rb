@@ -1,6 +1,3 @@
-require 'pry'
-require "bigdecimal"
-require "bigdecimal/util"
 require "time"
 
 class Invoice
@@ -21,7 +18,16 @@ class Invoice
      @invoice_repository_object.find_merchant_by_merchant_id(self.merchant_id)
    end
 
+   def items
+     @invoice_repository_object.find_invoice_items_by_id(self.id)
+   end
 
+   def transactions
+     @invoice_repository_object.find_transactions_by_invoice_id(self.id)
+   end
 
+   def customer
+     @invoice_repository_object.find_customer_by_customer_id(self.customer_id)
+   end
 
 end

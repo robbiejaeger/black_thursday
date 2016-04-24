@@ -43,7 +43,7 @@ class ItemRepository
     @sales_engine_object.find_merchant_by_merchant_id(merchant_id)
   end
 
-private
+  private
 
   def create_items(csv_filepath)
     parse_csv_data(csv_filepath)

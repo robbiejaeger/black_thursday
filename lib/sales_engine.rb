@@ -33,4 +33,34 @@ class SalesEngine
     @merchants.find_by_id(merchant_id)
   end
 
+  def find_invoice_items_by_id(id)
+    @invoice_items.find_all_by_invoice_id(id).map do |invoice_item|
+      @items.find_by_id(invoice_item.item_id)
+    end
+  end
+
+  def find_transactions_by_invoice_id(id)
+    @transactions.find_all_by_invoice_id(id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    @customers.find_by_id(customer_id)
+  end
+
+  def find_invoice_by_invoice_id(invoice_id)
+    @invoices.find_by_id(invoice_id)
+  end
+
+  def find_all_customers_for_merchant(id)
+    @invoices.find_all_by_merchant_id(id).map do |invoice|
+      @customers.find_by_id(invoice.customer_id)
+    end.uniq{|customer| customer.id}
+  end
+
+  def find_all_merchants_by_customer_id(id)
+    @invoices.find_all_by_customer_id(id).map do |invoice|
+      @merchants.find_by_id(invoice.merchant_id)
+    end.uniq{|merchant| merchant.id}
+  end
+
 end
