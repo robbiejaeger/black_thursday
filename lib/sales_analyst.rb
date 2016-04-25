@@ -187,8 +187,15 @@ class SalesAnalyst
     merchants_with_only_one_item.find_all do |merchant|
       merchant.created_at.month == month_number
     end
-
-    # And merchants that only sell one item by the
-    # month they registered (merchant.created_at)
   end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @sales_engine.merchants.find_all_invoices_by_merchant_id(merchant_id)
+    invoices.map { |invoice| invoice.total }.reduce(:+)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+
+  end
+
 end
