@@ -12,11 +12,17 @@ class SalesAnalyst
     (@sales_engine.items.all.count.to_f/@sales_engine.merchants.all.count.to_f).round(2)
   end
 
+  def standard_deviation(set, avg)
+    Math.sqrt(set.map do |set_item|
+      (set_item - avg) ** 2
+    end.reduce(:+)/(set.count.to_f-1)).round(2)
+  end
+
   def average_items_per_merchant_standard_deviation
-    avg = average_items_per_merchant
-    Math.sqrt(@sales_engine.merchants.all.map do |merchant|
-      (merchant.items.count - avg) ** 2
-    end.reduce(:+)/(@sales_engine.merchants.all.count.to_f-1)).round(2)
+    set = @sales_engine.merchants.all.map do |merchant|
+      merchant.items.count
+    end
+    standard_deviation(set, average_items_per_merchant)
   end
 
   def merchants_with_high_item_count
@@ -49,10 +55,10 @@ class SalesAnalyst
   end
 
   def item_price_standard_deviation
-    avg = average_item_price
-    Math.sqrt(@sales_engine.items.all.map do |item|
-      (item.unit_price - avg) ** 2
-    end.reduce(:+)/(@sales_engine.items.all.count - 1))
+    set = @sales_engine.items.all.map do |item|
+      item.unit_price
+    end
+    standard_deviation(set, average_item_price)
   end
 
   def average_item_price
@@ -66,10 +72,10 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    avg = average_invoices_per_merchant
-    Math.sqrt(@sales_engine.merchants.all.map do |merchant|
-      (merchant.invoices.count - avg) ** 2
-    end.reduce(:+)/(@sales_engine.merchants.all.count.to_f-1)).round(2)
+    set = @sales_engine.merchants.all.map do |merchant|
+      merchant.invoices.count
+    end
+    standard_deviation(set, average_invoices_per_merchant)
   end
 
   def top_merchants_by_invoice_count
@@ -89,16 +95,11 @@ class SalesAnalyst
   end
 
   def set_of_invoices_by_day
-    all_invoices = @sales_engine.invoices.all
-    mon = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "monday" }
-    tue = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "tuesday" }
-    wed = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "wednesday" }
-    thu = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "thursday" }
-    fri = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "friday" }
-    sat = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "saturday" }
-    sun = all_invoices.count{ |invoice| invoice.created_at.strftime("%A").downcase == "sunday" }
-
-    {"Monday" => mon, "Tuesday" => tue, "Wednesday" => wed, "Thursday" => thu, "Friday" => fri, "Saturday" => sat, "Sunday" => sun}
+    set_of_invoices_by_day = Hash.new(0)
+    @sales_engine.invoices.all.each do |invoice|
+        set_of_invoices_by_day[invoice.created_at.strftime("%A")] += 1
+    end
+    set_of_invoices_by_day
   end
 
   def avg_invoices_per_day
@@ -106,10 +107,8 @@ class SalesAnalyst
   end
 
   def standard_deviation_invoices_per_day
-    avg = avg_invoices_per_day
-    Math.sqrt(set_of_invoices_by_day.values.map do |num|
-      (num - avg) ** 2
-    end.reduce(:+)/6).round(2)
+    set = set_of_invoices_by_day.values
+    standard_deviation(set, avg_invoices_per_day)
   end
 
   def top_days_by_invoice_count
@@ -153,7 +152,7 @@ class SalesAnalyst
   def top_revenue_earners(x = 20)
     all_merchants = @sales_engine.merchants.all
 
-    merchant_invoices = all_merchants.map do |merchant|
+    merchant_invoices = @sales_engine.merchants.all.map do |merchant|
       merchant.invoices
     end
 
@@ -163,7 +162,7 @@ class SalesAnalyst
       end.reduce(:+)
     end
 
-    merchant_revenue_in_order = all_merchants.zip(merchant_revenue).sort_by {|a| a[1]}.reverse[0...x]
+    merchant_revenue_in_order = all_merchants.zip(merchant_revenue).sort_by{|a| -a[1]}[0...x]
     merchant_revenue_in_order.map do |array|
       array[0]
     end
