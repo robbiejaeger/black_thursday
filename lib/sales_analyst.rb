@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class SalesAnalyst
 
@@ -166,6 +167,46 @@ class SalesAnalyst
     merchant_revenue_in_order.map do |array|
       array[0]
     end
+  end
+
+  def merchants_ranked_by_revenue
+    top_revenue_earners(@sales_engine.merchants.all.length)
+  end
+
+  def merchants_with_pending_invoices
+    all_invoices = @sales_engine.invoices.all
+    result = all_invoices.find_all { |invoice| invoice.is_paid_in_full? == false }
+    result.map { |invoice| invoice.merchant }.uniq
+  end
+
+  def merchants_with_only_one_item
+    all_merchants = @sales_engine.merchants.all
+    all_merchants.find_all { |merchant| merchant.items.count == 1 }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    months = Date::MONTHNAMES
+    month_number = months.index(month.capitalize)
+
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == month_number
+    end
+  end
+
+  def revenue_by_merchant(merchant_id)
+    invoices = @sales_engine.merchants.find_all_invoices_by_merchant_id(merchant_id)
+    invoices.map { |invoice| invoice.total }.reduce(:+)
+  end
+
+  def most_sold_item_for_merchant(merchant_id)
+    items = @sales_engine.
+
+
+
+# need list of items sold sorted by quantity sold per merchant
+# [item] (in terms of quantity sold) or, if there
+# is a tie, [item, item, item]
+
   end
 
 end
