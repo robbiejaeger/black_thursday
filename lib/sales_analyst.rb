@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class SalesAnalyst
 
@@ -168,4 +169,26 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_pending_invoices
+    all_invoices = @sales_engine.invoices.all
+    result = all_invoices.find_all { |invoice| invoice.is_paid_in_full? == false }
+    result.map { |invoice| invoice.merchant }.uniq
+  end
+
+  def merchants_with_only_one_item
+    all_merchants = @sales_engine.merchants.all
+    all_merchants.find_all { |merchant| merchant.items.count == 1 }
+  end
+
+  def merchants_with_only_one_item_registered_in_month(month)
+    months = Date::MONTHNAMES
+    month_number = months.index(month.capitalize)
+
+    merchants_with_only_one_item.find_all do |merchant|
+      merchant.created_at.month == month_number
+    end
+
+    # And merchants that only sell one item by the
+    # month they registered (merchant.created_at)
+  end
 end
