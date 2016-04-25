@@ -169,6 +169,10 @@ class SalesAnalyst
     end
   end
 
+  def merchants_ranked_by_revenue
+    top_revenue_earners(@sales_engine.merchants.all.length)
+  end
+
   def merchants_with_pending_invoices
     all_invoices = @sales_engine.invoices.all
     result = all_invoices.find_all { |invoice| invoice.is_paid_in_full? == false }
@@ -195,6 +199,13 @@ class SalesAnalyst
   end
 
   def most_sold_item_for_merchant(merchant_id)
+    items = @sales_engine.
+
+
+
+# need list of items sold sorted by quantity sold per merchant
+# [item] (in terms of quantity sold) or, if there
+# is a tie, [item, item, item]
 
   end
 
