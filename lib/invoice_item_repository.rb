@@ -57,7 +57,6 @@ class InvoiceItemRepository
     invoice_item_creation_hash[:unit_price] = unit_price
     invoice_item_creation_hash[:created_at] = created_at
     invoice_item_creation_hash[:updated_at] = updated_at
-    invoice_item_creation_hash
     add_invoice_item(invoice_item_creation_hash)
   end
 

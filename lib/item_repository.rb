@@ -73,7 +73,6 @@ class ItemRepository
     item_creation_hash[:merchant_id] = merchant_id
     item_creation_hash[:created_at] = created_at
     item_creation_hash[:updated_at] = updated_at
-    item_creation_hash
     add_item(item_creation_hash)
   end
 

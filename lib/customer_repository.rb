@@ -57,7 +57,6 @@ class CustomerRepository
     customer_creation_hash[:last_name] = last_name
     customer_creation_hash[:created_at] = created_at
     customer_creation_hash[:updated_at] = updated_at
-    customer_creation_hash
     add_customer(customer_creation_hash)
   end
 

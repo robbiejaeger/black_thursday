@@ -36,6 +36,6 @@ class MerchantsTest < Minitest::Test
     invoices = merchant.invoices
 
     assert_equal 10, invoices.count
-    end
+  end
 
 end

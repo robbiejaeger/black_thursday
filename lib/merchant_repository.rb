@@ -63,7 +63,6 @@ class MerchantRepository
     merchant_creation_hash[:name] = name
     merchant_creation_hash[:created_at] = created_at
     merchant_creation_hash[:updated_at] = updated_at
-    merchant_creation_hash
     add_merchant(merchant_creation_hash)
   end
 

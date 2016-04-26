@@ -79,7 +79,6 @@ class InvoiceRepository
     invoice_creation_hash[:status] = status
     invoice_creation_hash[:created_at] = created_at
     invoice_creation_hash[:updated_at] = updated_at
-    invoice_creation_hash
     add_invoice(invoice_creation_hash)
   end
 

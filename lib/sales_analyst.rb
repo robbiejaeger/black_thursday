@@ -1,4 +1,6 @@
 require 'time'
+require 'bigdecimal'
+require 'bigdecimal/util'
 require 'pry'
 
 class SalesAnalyst
@@ -198,15 +200,38 @@ class SalesAnalyst
     invoices.map { |invoice| invoice.total }.reduce(:+)
   end
 
+  def get_all_invoice_items_for_merchant(merchant_id)
+    merchant = @sales_engine.merchants.find_by_id(merchant_id)
+
+    invoices_paid = merchant.invoices.find_all {|invoice| invoice.is_paid_in_full? == true}
+
+    invoices_paid.map do |invoice|
+      @sales_engine.invoice_items.find_all_by_invoice_id(invoice.id)
+    end.flatten
+  end
+
   def most_sold_item_for_merchant(merchant_id)
-    items = @sales_engine.
+    invoice_items = get_all_invoice_items_for_merchant(merchant_id)
 
+    all_items = invoice_items.map do |invoice_item|
+      [@sales_engine.items.find_by_id(invoice_item.item_id)]*invoice_item.quantity
+    end.flatten
 
+    all_items.group_by {|item| all_items.count(item)}.max[1].uniq
+  end
 
-# need list of items sold sorted by quantity sold per merchant
-# [item] (in terms of quantity sold) or, if there
-# is a tie, [item, item, item]
+  def best_item_for_merchant(merchant_id)
+    invoice_items = get_all_invoice_items_for_merchant(merchant_id)
 
+    invoice_items_times_quantity = invoice_items.map do |invoice_item|
+      [invoice_item]*invoice_item.quantity
+    end.flatten
+
+    grouped = invoice_items_times_quantity.group_by {|invoice_item| invoice_item.item_id}
+
+    max_item_id = grouped.max_by {|k,v| v.map{|invoice_item| invoice_item.unit_price}.reduce(:+) }[0]
+
+    @sales_engine.items.find_by_id(max_item_id)
   end
 
 end

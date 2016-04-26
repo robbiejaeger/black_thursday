@@ -65,7 +65,6 @@ class TransactionRepository
     transaction_creation_hash[:result] = result
     transaction_creation_hash[:created_at] = created_at
     transaction_creation_hash[:updated_at] = updated_at
-    transaction_creation_hash
     add_transaction(transaction_creation_hash)
   end
 
