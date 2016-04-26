@@ -8,7 +8,7 @@ class TransactionRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @transactions = []
-    create_transactions(csv_filepath)
+    create_transactions(csv_filepath) unless csv_filepath.nil?
   end
 
   def all

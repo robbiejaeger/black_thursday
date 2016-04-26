@@ -8,7 +8,7 @@ class MerchantRepository
   def initialize(csv_filepath, sales_engine_object)
     @merchants = []
     @sales_engine_object = sales_engine_object
-    create_merchants(csv_filepath)
+    create_merchants(csv_filepath) unless csv_filepath.nil?
   end
 
   def all

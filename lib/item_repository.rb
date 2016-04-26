@@ -8,7 +8,7 @@ class ItemRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @items = []
-    create_items(csv_filepath)
+    create_items(csv_filepath) unless csv_filepath.nil?
   end
 
   def all

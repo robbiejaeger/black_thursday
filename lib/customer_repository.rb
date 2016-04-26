@@ -8,7 +8,7 @@ class CustomerRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @customers = []
-    create_customers(csv_filepath)
+    create_customers(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
