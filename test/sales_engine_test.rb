@@ -9,5 +9,7 @@ class SalesEngineTest < Minitest::Test
       :merchants => "./data/merchants.csv"
       })
 
-    end
+    assert se
   end
+
+end

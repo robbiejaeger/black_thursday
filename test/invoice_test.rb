@@ -16,6 +16,4 @@ class InvoiceTest < Minitest::Test
     assert invoice1.id.kind_of?(Fixnum)
   end
 
-
-
 end

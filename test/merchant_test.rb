@@ -1,6 +1,5 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "pry"
 require_relative "../lib/merchant"
 require_relative "../lib/sales_engine"
 
@@ -36,6 +35,6 @@ class MerchantsTest < Minitest::Test
     invoices = merchant.invoices
 
     assert_equal 10, invoices.count
-    end
+  end
 
 end

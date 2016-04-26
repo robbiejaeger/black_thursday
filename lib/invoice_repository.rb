@@ -8,7 +8,7 @@ class InvoiceRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @invoices = []
-    create_invoices(csv_filepath)
+    create_invoices(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
@@ -67,11 +67,13 @@ class InvoiceRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_invoice_hash(id, customer_id, merchant_id, status, created_at, updated_at)
+      create_invoice_hash(id, customer_id, merchant_id,
+                          status, created_at, updated_at)
     end
   end
 
-  def create_invoice_hash(id, customer_id, merchant_id, status, created_at, updated_at)
+  def create_invoice_hash(id, customer_id, merchant_id, status,
+                          created_at, updated_at)
     invoice_creation_hash = {}
     invoice_creation_hash[:id] = id
     invoice_creation_hash[:customer_id] = customer_id
@@ -79,7 +81,6 @@ class InvoiceRepository
     invoice_creation_hash[:status] = status
     invoice_creation_hash[:created_at] = created_at
     invoice_creation_hash[:updated_at] = updated_at
-    invoice_creation_hash
     add_invoice(invoice_creation_hash)
   end
 

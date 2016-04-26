@@ -3,7 +3,7 @@ require "minitest/pride"
 require_relative "../lib/invoice_item_repository"
 require_relative "../lib/invoice_item"
 
-class InvoiceItemRepositoryTest < Minitest::Test
+class InvoiceItemTest < Minitest::Test
 
   def setup
     csv_filepath = "./data/invoice_items.csv"

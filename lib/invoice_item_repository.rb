@@ -8,7 +8,7 @@ class InvoiceItemRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @invoice_items = []
-    create_invoice_items(csv_filepath)
+    create_invoice_items(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
@@ -24,7 +24,9 @@ class InvoiceItemRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @invoice_items.find_all { |invoice_item| invoice_item.invoice_id == invoice_id }
+    @invoice_items.find_all do |invoice_item|
+      invoice_item.invoice_id == invoice_id
+    end
   end
 
   private
@@ -44,11 +46,13 @@ class InvoiceItemRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price, created_at, updated_at)
+      create_invoice_item_hash(id, item_id, invoice_id, quantity,
+                                unit_price, created_at, updated_at)
     end
   end
 
-  def create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price, created_at, updated_at)
+  def create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price,
+                                created_at, updated_at)
     invoice_item_creation_hash = {}
     invoice_item_creation_hash[:id] = id
     invoice_item_creation_hash[:item_id] = item_id
@@ -57,7 +61,6 @@ class InvoiceItemRepository
     invoice_item_creation_hash[:unit_price] = unit_price
     invoice_item_creation_hash[:created_at] = created_at
     invoice_item_creation_hash[:updated_at] = updated_at
-    invoice_item_creation_hash
     add_invoice_item(invoice_item_creation_hash)
   end
 

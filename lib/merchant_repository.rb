@@ -8,7 +8,7 @@ class MerchantRepository
   def initialize(csv_filepath, sales_engine_object)
     @merchants = []
     @sales_engine_object = sales_engine_object
-    create_merchants(csv_filepath)
+    create_merchants(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
@@ -28,7 +28,9 @@ class MerchantRepository
   end
 
   def find_all_by_name(name)
-    @merchants.find_all { |merchant| merchant.name.downcase.include?(name.downcase) }
+    @merchants.find_all do |merchant|
+      merchant.name.downcase.include?(name.downcase)
+    end
   end
 
   def find_all_invoices_by_merchant_id(id)
@@ -63,7 +65,6 @@ class MerchantRepository
     merchant_creation_hash[:name] = name
     merchant_creation_hash[:created_at] = created_at
     merchant_creation_hash[:updated_at] = updated_at
-    merchant_creation_hash
     add_merchant(merchant_creation_hash)
   end
 

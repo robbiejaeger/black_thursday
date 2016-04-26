@@ -8,7 +8,7 @@ class ItemRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @items = []
-    create_items(csv_filepath)
+    create_items(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
@@ -60,11 +60,13 @@ class ItemRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_item_hash(id, name, description, unit_price, merchant_id, created_at, updated_at)
+      create_item_hash(id, name, description, unit_price,
+                        merchant_id, created_at, updated_at)
     end
   end
 
-  def create_item_hash(id, name, description, unit_price, merchant_id, created_at, updated_at)
+  def create_item_hash(id, name, description, unit_price,
+                        merchant_id, created_at, updated_at)
     item_creation_hash = {}
     item_creation_hash[:id] = id
     item_creation_hash[:name] = name
@@ -73,7 +75,6 @@ class ItemRepository
     item_creation_hash[:merchant_id] = merchant_id
     item_creation_hash[:created_at] = created_at
     item_creation_hash[:updated_at] = updated_at
-    item_creation_hash
     add_item(item_creation_hash)
   end
 

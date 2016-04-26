@@ -8,7 +8,7 @@ class CustomerRepository
   def initialize(csv_filepath, sales_engine_object)
     @sales_engine_object = sales_engine_object
     @customers = []
-    create_customers(csv_filepath)
+    create_customers(csv_filepath) unless csv_filepath.nil?
   end
 
   def all
@@ -20,11 +20,15 @@ class CustomerRepository
   end
 
   def find_all_by_first_name(first_name)
-    @customers.find_all { |name| name.first_name.downcase.include?(first_name.downcase) }
+    @customers.find_all do |name|
+      name.first_name.downcase.include?(first_name.downcase)
+    end
   end
 
   def find_all_by_last_name(last_name)
-    @customers.find_all { |name| name.last_name.downcase.include?(last_name.downcase) }
+    @customers.find_all do |name|
+      name.last_name.downcase.include?(last_name.downcase)
+    end
   end
 
   def find_all_merchants_by_customer_id(id)
@@ -57,7 +61,6 @@ class CustomerRepository
     customer_creation_hash[:last_name] = last_name
     customer_creation_hash[:created_at] = created_at
     customer_creation_hash[:updated_at] = updated_at
-    customer_creation_hash
     add_customer(customer_creation_hash)
   end
 

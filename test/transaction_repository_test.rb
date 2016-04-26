@@ -1,6 +1,5 @@
 require "minitest/autorun"
 require "minitest/pride"
-require "pry"
 require_relative "../lib/transaction_repository"
 
 
@@ -35,7 +34,5 @@ class TransactionRepositoryTest < Minitest::Test
     assert trans.find_all_by_result("success")[0].kind_of?(Transaction)
     assert_equal 4158, trans.find_all_by_result("success").count
   end
-
-
 
 end

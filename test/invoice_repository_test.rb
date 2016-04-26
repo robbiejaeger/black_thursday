@@ -12,7 +12,6 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_all
-
     assert_equal 4985, @ir.all.count
   end
 
