@@ -67,11 +67,13 @@ class InvoiceRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_invoice_hash(id, customer_id, merchant_id, status, created_at, updated_at)
+      create_invoice_hash(id, customer_id, merchant_id,
+                          status, created_at, updated_at)
     end
   end
 
-  def create_invoice_hash(id, customer_id, merchant_id, status, created_at, updated_at)
+  def create_invoice_hash(id, customer_id, merchant_id, status,
+                          created_at, updated_at)
     invoice_creation_hash = {}
     invoice_creation_hash[:id] = id
     invoice_creation_hash[:customer_id] = customer_id

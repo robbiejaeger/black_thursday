@@ -60,11 +60,13 @@ class ItemRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_item_hash(id, name, description, unit_price, merchant_id, created_at, updated_at)
+      create_item_hash(id, name, description, unit_price,
+                        merchant_id, created_at, updated_at)
     end
   end
 
-  def create_item_hash(id, name, description, unit_price, merchant_id, created_at, updated_at)
+  def create_item_hash(id, name, description, unit_price,
+                        merchant_id, created_at, updated_at)
     item_creation_hash = {}
     item_creation_hash[:id] = id
     item_creation_hash[:name] = name

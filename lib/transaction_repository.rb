@@ -20,11 +20,13 @@ class TransactionRepository
   end
 
   def find_all_by_invoice_id(invoice_id)
-    @transactions.find_all { |transaction| transaction.invoice_id == invoice_id }
+    @transactions.find_all{ |transaction| transaction.invoice_id == invoice_id}
   end
 
   def find_all_by_credit_card_number(credit_card_number)
-    @transactions.find_all { |transaction| transaction.credit_card_number == credit_card_number }
+    @transactions.find_all do |transaction|
+      transaction.credit_card_number == credit_card_number
+    end
   end
 
   def find_all_by_result(result)
@@ -52,16 +54,19 @@ class TransactionRepository
       created_at = row[:created_at]
       updated_at = row[:updated_at]
 
-      create_transaction_hash(id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,updated_at)
+      create_transaction_hash(id, invoice_id, credit_card_number,
+                    credit_card_expiration_date, result, created_at, updated_at)
     end
   end
 
-  def create_transaction_hash(id, invoice_id, credit_card_number, credit_card_expiration_date, result, created_at, updated_at)
+  def create_transaction_hash(id, invoice_id, credit_card_number,
+                    credit_card_expiration_date, result, created_at, updated_at)
     transaction_creation_hash = {}
     transaction_creation_hash[:id] = id
     transaction_creation_hash[:invoice_id] = invoice_id
     transaction_creation_hash[:credit_card_number] = credit_card_number
-    transaction_creation_hash[:credit_card_expiration_date] = credit_card_expiration_date
+    transaction_creation_hash[:credit_card_expiration_date] =
+                                                    credit_card_expiration_date
     transaction_creation_hash[:result] = result
     transaction_creation_hash[:created_at] = created_at
     transaction_creation_hash[:updated_at] = updated_at
