@@ -1,5 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
+require_relative "./test_helper"
 require "bigdecimal"
 require "bigdecimal/util"
 require "time"
