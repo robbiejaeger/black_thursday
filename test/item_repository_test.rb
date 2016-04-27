@@ -67,6 +67,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_find_all_by_merchant_id_can_find_merchants
     items = @ir.find_all_by_merchant_id(12334185)
 
+    assert items.kind_of?(Array)
+    assert items[0].kind_of?(Item)
     assert_equal 6, items.count
   end
 
@@ -76,9 +78,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], items
   end
 
-  def test_can_find_items_by_price
+  def test_can_find_all_items_by_price
     items = @ir.find_all_by_price(500)
 
+    assert items[0].kind_of?(Item)
     assert_equal 11, items.count
   end
 
@@ -91,7 +94,8 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_items_in_price_range
     items = @ir.find_all_by_price_in_range((500..5000))
 
-    assert items
+    assert items[0].kind_of?(Item)
+    assert_equal 89, items.count
   end
 
 end
