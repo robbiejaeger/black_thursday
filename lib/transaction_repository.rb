@@ -46,39 +46,28 @@ class TransactionRepository
   def parse_csv_data(csv_filepath)
     contents = CSV.open(csv_filepath, headers: true, header_converters: :symbol)
     contents.each do |row|
-      id = row[:id]
-      invoice_id = row[:invoice_id]
-      credit_card_number = row[:credit_card_number]
-      credit_card_expiration_date = row[:credit_card_expiration_date]
-      result = row[:result]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
+      transaction_creation_hash = {}
 
-      create_transaction_hash(id, invoice_id, credit_card_number,
-                    credit_card_expiration_date, result, created_at, updated_at)
+      transaction_creation_hash[:id] = row[:id]
+      transaction_creation_hash[:invoice_id] = row[:invoice_id]
+      transaction_creation_hash[:credit_card_number] = row[:credit_card_number]
+      transaction_creation_hash[:credit_card_expiration_date] = row[:credit_card_expiration_date]
+      transaction_creation_hash[:result] = row[:result]
+      transaction_creation_hash[:created_at] = row[:created_at]
+      transaction_creation_hash[:updated_at] = row[:updated_at]
+
+      add_transaction(transaction_creation_hash)
     end
-  end
-
-  def create_transaction_hash(id, invoice_id, credit_card_number,
-                    credit_card_expiration_date, result, created_at, updated_at)
-    transaction_creation_hash = {}
-    transaction_creation_hash[:id] = id
-    transaction_creation_hash[:invoice_id] = invoice_id
-    transaction_creation_hash[:credit_card_number] = credit_card_number
-    transaction_creation_hash[:credit_card_expiration_date] =
-                                                    credit_card_expiration_date
-    transaction_creation_hash[:result] = result
-    transaction_creation_hash[:created_at] = created_at
-    transaction_creation_hash[:updated_at] = updated_at
-    add_transaction(transaction_creation_hash)
   end
 
   def add_transaction(transaction_creation_hash)
     @transactions << Transaction.new(transaction_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@transactions.size} rows>"
   end
+  # :nocov:
 
 end
