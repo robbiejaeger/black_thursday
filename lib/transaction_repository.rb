@@ -51,7 +51,8 @@ class TransactionRepository
       transaction_creation_hash[:id] = row[:id]
       transaction_creation_hash[:invoice_id] = row[:invoice_id]
       transaction_creation_hash[:credit_card_number] = row[:credit_card_number]
-      transaction_creation_hash[:credit_card_expiration_date] = row[:credit_card_expiration_date]
+      transaction_creation_hash[:credit_card_expiration_date] =
+                                              row[:credit_card_expiration_date]
       transaction_creation_hash[:result] = row[:result]
       transaction_creation_hash[:created_at] = row[:created_at]
       transaction_creation_hash[:updated_at] = row[:updated_at]
