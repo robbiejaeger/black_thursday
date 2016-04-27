@@ -52,38 +52,28 @@ class ItemRepository
   def parse_csv_data(csv_filepath)
     contents = CSV.open(csv_filepath, headers: true, header_converters: :symbol)
     contents.each do |row|
-      id = row[:id]
-      name = row[:name]
-      description = row[:description]
-      unit_price = row[:unit_price]
-      merchant_id = row[:merchant_id]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
+      item_creation_hash = {}
 
-      create_item_hash(id, name, description, unit_price,
-                        merchant_id, created_at, updated_at)
+      item_creation_hash[:id] = row[:id]
+      item_creation_hash[:name] = row[:name]
+      item_creation_hash[:description] = row[:description]
+      item_creation_hash[:unit_price] = row[:unit_price]
+      item_creation_hash[:merchant_id] = row[:merchant_id]
+      item_creation_hash[:created_at] = row[:created_at]
+      item_creation_hash[:updated_at] = row[:updated_at]
+
+      add_item(item_creation_hash)
     end
-  end
-
-  def create_item_hash(id, name, description, unit_price,
-                        merchant_id, created_at, updated_at)
-    item_creation_hash = {}
-    item_creation_hash[:id] = id
-    item_creation_hash[:name] = name
-    item_creation_hash[:description] = description
-    item_creation_hash[:unit_price] = unit_price
-    item_creation_hash[:merchant_id] = merchant_id
-    item_creation_hash[:created_at] = created_at
-    item_creation_hash[:updated_at] = updated_at
-    add_item(item_creation_hash)
   end
 
   def add_item(item_creation_hash)
     @items << Item.new(item_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+  # :nocov:
 
 end

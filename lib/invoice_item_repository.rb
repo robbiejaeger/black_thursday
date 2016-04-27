@@ -38,38 +38,28 @@ class InvoiceItemRepository
   def parse_csv_data(csv_filepath)
     contents = CSV.open(csv_filepath, headers: true, header_converters: :symbol)
     contents.each do |row|
-      id = row[:id]
-      item_id = row[:item_id]
-      invoice_id = row[:invoice_id]
-      quantity = row[:quantity]
-      unit_price = row[:unit_price]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
+      invoice_item_creation_hash = {}
 
-      create_invoice_item_hash(id, item_id, invoice_id, quantity,
-                                unit_price, created_at, updated_at)
+      invoice_item_creation_hash[:id] = row[:id]
+      invoice_item_creation_hash[:item_id] = row[:item_id]
+      invoice_item_creation_hash[:invoice_id] = row[:invoice_id]
+      invoice_item_creation_hash[:quantity] = row[:quantity]
+      invoice_item_creation_hash[:unit_price] = row[:unit_price]
+      invoice_item_creation_hash[:created_at] = row[:created_at]
+      invoice_item_creation_hash[:updated_at] = row[:updated_at]
+
+      add_invoice_item(invoice_item_creation_hash)
     end
-  end
-
-  def create_invoice_item_hash(id, item_id, invoice_id, quantity, unit_price,
-                                created_at, updated_at)
-    invoice_item_creation_hash = {}
-    invoice_item_creation_hash[:id] = id
-    invoice_item_creation_hash[:item_id] = item_id
-    invoice_item_creation_hash[:invoice_id] = invoice_id
-    invoice_item_creation_hash[:quantity] = quantity
-    invoice_item_creation_hash[:unit_price] = unit_price
-    invoice_item_creation_hash[:created_at] = created_at
-    invoice_item_creation_hash[:updated_at] = updated_at
-    add_invoice_item(invoice_item_creation_hash)
   end
 
   def add_invoice_item(invoice_item_creation_hash)
     @invoice_items << InvoiceItem.new(invoice_item_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+  # :nocov:
 
 end
