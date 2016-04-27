@@ -1,6 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "pry"
+require_relative "./test_helper"
 require_relative "../lib/sales_analyst"
 require_relative "../lib/sales_engine"
 
@@ -98,5 +96,5 @@ class SalesAnalystTest < Minitest::Test
   def test_can_get_invoices_for_certain_date
     @sa.total_revenue_by_date(Time.parse("2009-02-07")).kind_of?(Array)
   end
-  
+
 end
