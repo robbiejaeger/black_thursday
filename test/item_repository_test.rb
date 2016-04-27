@@ -54,7 +54,7 @@ class ItemRepositoryTest < Minitest::Test
   def test_can_find_items_by_description_string
     items = @ir.find_all_with_description("two")
 
-    assert_equal 65, items.count
+    assert_equal 69, items.count
   end
 
   def test_find_by_description_returns_empty_array_for_bad_description
@@ -77,7 +77,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_can_find_items_by_price
-    items = @ir.find_all_by_price(50000)
+    items = @ir.find_all_by_price(500)
 
     assert_equal 11, items.count
   end

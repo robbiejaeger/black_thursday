@@ -1,7 +1,6 @@
 require 'time'
 require 'bigdecimal'
 require 'bigdecimal/util'
-require 'pry'
 
 class SalesAnalyst
 
