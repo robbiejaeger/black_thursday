@@ -97,4 +97,26 @@ class SalesAnalystTest < Minitest::Test
     @sa.total_revenue_by_date(Time.parse("2009-02-07")).kind_of?(Array)
   end
 
+  def test_total_invoices_pending
+    assert_equal 1473, @sa.total_invoices_pending
+  end
+
+  def test_total_invoices_returned
+    assert_equal 673, @sa.total_invoices_returned
+  end
+
+  def test_merchants_with_only_one_item
+    assert @sa.merchants_with_only_one_item[0].kind_of?(Merchant)
+  end
+
+  def test_merchants_ranked_by_revenue
+    assert @sa.merchants_ranked_by_revenue[1].kind_of?(Merchant)
+  end
+
+  def test_invoice_status
+    assert_equal 29.55, @sa.invoice_status(:pending)
+    assert_equal 56.95, @sa.invoice_status(:shipped)
+    assert_equal 13.50, @sa.invoice_status(:returned)
+  end
+
 end
