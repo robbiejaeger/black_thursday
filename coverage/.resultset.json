@@ -72,8 +72,11 @@
         24000,
         null,
         null,
+        null,
         1,
         0,
+        null,
+        null,
         null,
         null
       ],
@@ -240,8 +243,10 @@
         502090,
         null,
         null,
+        null,
         1,
         0,
+        null,
         null,
         null,
         null
@@ -456,8 +461,11 @@
         119640,
         null,
         null,
+        null,
         1,
         0,
+        null,
+        null,
         null,
         null
       ],
@@ -715,8 +723,10 @@
         53313,
         null,
         null,
+        null,
         1,
         0,
+        null,
         null,
         null,
         null
@@ -976,8 +986,10 @@
         13300,
         null,
         null,
+        null,
         1,
         0,
+        null,
         null,
         null,
         null
@@ -1091,8 +1103,10 @@
         109670,
         null,
         null,
+        null,
         1,
         0,
+        null,
         null,
         null,
         null
@@ -1711,6 +1725,6 @@
         null
       ]
     },
-    "timestamp": 1461771909
+    "timestamp": 1461773970
   }
 }

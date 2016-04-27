@@ -68,8 +68,10 @@ class InvoiceItemRepository
     @invoice_items << InvoiceItem.new(invoice_item_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@merchants.size} rows>"
   end
+  # :nocov:
 
 end

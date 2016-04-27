@@ -68,7 +68,10 @@ class CustomerRepository
     @customers << Customer.new(customer_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@customers.size} rows>"
   end
+  # :nocov:
+  
 end

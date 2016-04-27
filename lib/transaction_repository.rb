@@ -77,8 +77,10 @@ class TransactionRepository
     @transactions << Transaction.new(transaction_creation_hash, self)
   end
 
+  # :nocov:
   def inspect
     "#<#{self.class} #{@transactions.size} rows>"
   end
+  # :nocov:
 
 end
