@@ -5,7 +5,7 @@ require_relative "../lib/transaction"
 
 class TransactionTest < Minitest::Test
 
-  def setup
+  def test_transaction_properties_and_types
     @t = Transaction.new({
       :id => "1",
       :invoice_id => "2179",
@@ -15,9 +15,7 @@ class TransactionTest < Minitest::Test
       :created_at => "2012-02-26 20:56:56 UTC",
       :updated_at => "2012-02-26 20:56:56 UTC"
       }, nil)
-  end
 
-  def test_transaction_properties_and_types
     assert @t.id.kind_of?(Fixnum)
     assert_equal 1, @t.id
 

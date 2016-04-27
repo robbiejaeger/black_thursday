@@ -83,7 +83,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_returns_empty_array_for_no_items_with_a_price
-    items = @ir.find_all_by_price(1)
+    items = @ir.find_all_by_price(0.0001)
 
     assert_equal [], items
   end
