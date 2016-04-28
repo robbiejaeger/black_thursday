@@ -4,21 +4,8 @@ require_relative "../lib/sales_engine"
 
 class SalesAnalystTest < Minitest::Test
 
-  # se = SalesEngine.from_csv({
-  #   :items => "./data/items.csv",
-  #   :merchants => "./data/merchants.csv",
-  #   :invoices => "./data/invoices.csv",
-  #   :invoice_items => "./data/invoice_items.csv",
-  #   :transactions => "./data/transactions.csv",
-  #   :customers => "./data/customers.csv"
-  # })
-  #
-  # sa = SalesAnalyst.new(se)
-
   def test_it_can_exist
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv"
-    })
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
 
     sa = SalesAnalyst.new(se)
 
@@ -91,9 +78,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_find_average_price_of_all_items
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv"
-    })
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
 
     sa = SalesAnalyst.new(se)
 
@@ -103,9 +88,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_get_stdev_of_item_price
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv"
-    })
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
 
     sa = SalesAnalyst.new(se)
 
@@ -115,9 +98,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_can_get_golden_items
-    se = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-    })
+    se = SalesEngine.from_csv({:items => "./data/items.csv",})
 
     sa = SalesAnalyst.new(se)
 
