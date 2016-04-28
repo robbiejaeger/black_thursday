@@ -155,8 +155,7 @@ class SalesAnalyst
 
   def top_revenue_earners(x = 20)
     all_merchants = @se.merchants.all
-
-    merchant_invoices = @se.merchants.all.map do |merchant|
+    merchant_invoices = all_merchants.map do |merchant|
       merchant.invoices
     end
 

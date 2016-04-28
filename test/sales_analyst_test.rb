@@ -4,7 +4,282 @@ require_relative "../lib/sales_engine"
 
 class SalesAnalystTest < Minitest::Test
 
-  def setup
+  def test_it_can_exist
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    assert sa
+  end
+
+  def test_can_average_items_per_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    avg = sa.average_items_per_merchant
+
+    assert_equal 2.88, avg
+  end
+
+  def test_can_get_standard_deviation
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    stdev = sa.average_items_per_merchant_standard_deviation
+
+    assert_equal 3.26, stdev
+  end
+
+  def test_can_get_merchants_with_high_item_count
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    merchs = sa.merchants_with_high_item_count
+
+    assert_equal 52, merchs.count
+  end
+
+  def test_can_find_average_item_price_for_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    avg_price = sa.average_item_price_for_merchant(12334105)
+
+    assert avg_price.kind_of?(BigDecimal)
+  end
+
+  def test_can_find_average_of_average_price_per_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    avg_avg_price = sa.average_average_price_per_merchant
+
+    assert avg_avg_price.kind_of?(BigDecimal)
+  end
+
+  def test_can_find_average_price_of_all_items
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    avg_item_price = sa.average_item_price
+
+    assert avg_item_price.kind_of?(BigDecimal)
+  end
+
+  def test_can_get_stdev_of_item_price
+    se = SalesEngine.from_csv({:items => "./data/items.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    stdev_item_price = sa.item_price_standard_deviation
+
+    assert stdev_item_price.kind_of?(Float)
+  end
+
+  def test_can_get_golden_items
+    se = SalesEngine.from_csv({:items => "./data/items.csv",})
+
+    sa = SalesAnalyst.new(se)
+
+    golden_items = sa.golden_items
+
+    assert_equal 5, golden_items.count
+  end
+
+  def test_can_get_avg_invoices_per_merchant
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 10.49, sa.average_invoices_per_merchant
+  end
+
+  def test_can_get_average_invoices_per_merchant_standard_deviation
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal  3.29, sa.average_invoices_per_merchant_standard_deviation
+  end
+
+  def test_can_get_top_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+      })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 12, sa.top_merchants_by_invoice_count.count
+  end
+
+  def test_can_get_bottom_merchants_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert 12, sa.bottom_merchants_by_invoice_count.count
+  end
+
+  def test_can_get_top_days_by_invoice_count
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal ["Wednesday"], sa.top_days_by_invoice_count
+  end
+
+  def test_can_get_invoice_status_percentages
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 56.95, sa.invoice_status(:shipped)
+  end
+
+  def test_can_get_invoice_revenue_for_certain_date
+    se = SalesEngine.from_csv({
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 0, sa.total_revenue_by_date(Time.parse("2009-02-07"))
+  end
+
+  def test_total_invoices_pending
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 1473, sa.total_invoices_pending
+  end
+
+  def test_total_invoices_returned
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 673, sa.total_invoices_returned
+  end
+
+  def test_merchants_with_only_one_item
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert sa.merchants_with_only_one_item[0].kind_of?(Merchant)
+  end
+
+  def test_merchants_ranked_by_revenue
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert sa.merchants_ranked_by_revenue[1].kind_of?(Merchant)
+  end
+
+  def test_invoice_status
+    se = SalesEngine.from_csv({:invoices => "./data/invoices.csv"})
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 29.55, sa.invoice_status(:pending)
+    assert_equal 56.95, sa.invoice_status(:shipped)
+    assert_equal 13.50, sa.invoice_status(:returned)
+  end
+
+  def test_top_revenue_earners
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 5, sa.top_revenue_earners(5).count
+  end
+
+  def test_merchants_with_pending_invoices
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 467, sa.merchants_with_pending_invoices.count
+  end
+
+  def test_merchant_with_only_one_item_in_month
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").count
+  end
+
+  def test_revenue_by_merchant
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 67295.83, sa.revenue_by_merchant(12334112).to_f
+  end
+
+  def test_most_sold_item
     se = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
@@ -14,109 +289,28 @@ class SalesAnalystTest < Minitest::Test
       :customers => "./data/customers.csv"
     })
 
-    @sa = SalesAnalyst.new(se)
+    sa = SalesAnalyst.new(se)
+
+    result = sa.most_sold_item_for_merchant(12334112)
+
+    assert result[0].kind_of?(Item)
   end
 
-  def test_it_can_exist
-    assert @sa
-  end
+  def test_best_item_for_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
 
-  def test_can_average_items_per_merchant
-    avg = @sa.average_items_per_merchant
+    sa = SalesAnalyst.new(se)
 
-    assert_equal 2.88, avg
-  end
+    result = sa.best_item_for_merchant(12334112)
 
-  def test_can_get_standard_deviation
-    stdev = @sa.average_items_per_merchant_standard_deviation
-
-    assert_equal 3.26, stdev
-  end
-
-  def test_can_get_merchants_with_high_item_count
-    merchs = @sa.merchants_with_high_item_count
-
-    assert_equal 52, merchs.count
-  end
-
-  def test_can_find_average_item_price_for_merchant
-    avg_price = @sa.average_item_price_for_merchant(12334105)
-
-    assert avg_price.kind_of?(BigDecimal)
-  end
-
-  def test_can_find_average_of_average_price_per_merchant
-    avg_avg_price = @sa.average_average_price_per_merchant
-
-    assert avg_avg_price.kind_of?(BigDecimal)
-  end
-
-  def test_can_find_average_price_of_all_items
-    avg_item_price = @sa.average_item_price
-
-    assert avg_item_price.kind_of?(BigDecimal)
-  end
-
-  def test_can_get_stdev_of_item_price
-    stdev_item_price = @sa.item_price_standard_deviation
-
-    assert stdev_item_price.kind_of?(Float)
-  end
-
-  def test_can_get_golden_items
-    golden_items = @sa.golden_items
-
-    assert_equal 5, golden_items.count
-  end
-
-  def test_can_get_avg_invoices_per_merchant
-    assert_equal 10.49, @sa.average_invoices_per_merchant
-  end
-
-  def test_can_get_average_invoices_per_merchant_standard_deviation
-    assert_equal  3.29, @sa.average_invoices_per_merchant_standard_deviation
-  end
-
-  def test_can_get_top_merchants_by_invoice_count
-    assert (Array), @sa.top_merchants_by_invoice_count
-  end
-
-  def test_can_get_bottom_merchants_by_invoice_count
-    assert (Array), @sa.bottom_merchants_by_invoice_count
-  end
-
-  def test_can_get_top_days_by_invoice_count
-    assert_equal ["Wednesday"], @sa.top_days_by_invoice_count
-  end
-
-  def test_can_get_invoice_status_percentages
-    assert_equal 56.95, @sa.invoice_status(:shipped)
-  end
-
-  def test_can_get_invoices_for_certain_date
-    @sa.total_revenue_by_date(Time.parse("2009-02-07")).kind_of?(Array)
-  end
-
-  def test_total_invoices_pending
-    assert_equal 1473, @sa.total_invoices_pending
-  end
-
-  def test_total_invoices_returned
-    assert_equal 673, @sa.total_invoices_returned
-  end
-
-  def test_merchants_with_only_one_item
-    assert @sa.merchants_with_only_one_item[0].kind_of?(Merchant)
-  end
-
-  def test_merchants_ranked_by_revenue
-    assert @sa.merchants_ranked_by_revenue[1].kind_of?(Merchant)
-  end
-
-  def test_invoice_status
-    assert_equal 29.55, @sa.invoice_status(:pending)
-    assert_equal 56.95, @sa.invoice_status(:shipped)
-    assert_equal 13.50, @sa.invoice_status(:returned)
+    assert result.kind_of?(Item)
   end
 
 end
