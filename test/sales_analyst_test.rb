@@ -230,4 +230,87 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.50, sa.invoice_status(:returned)
   end
 
+  def test_top_revenue_earners
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 5, sa.top_revenue_earners(5).count
+  end
+
+  def test_merchants_with_pending_invoices
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :transactions => "./data/transactions.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 467, sa.merchants_with_pending_invoices.count
+  end
+
+  def test_merchant_with_only_one_item_in_month
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 18, sa.merchants_with_only_one_item_registered_in_month("June").count
+  end
+
+  def test_revenue_by_merchant
+    se = SalesEngine.from_csv({
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    assert_equal 67295.83, sa.revenue_by_merchant(12334112).to_f
+  end
+
+  def test_most_sold_item
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    result = sa.most_sold_item_for_merchant(12334112)
+
+    assert result[0].kind_of?(Item)
+  end
+
+  def test_best_item_for_merchant
+    se = SalesEngine.from_csv({
+      :items => "./data/items.csv",
+      :merchants => "./data/merchants.csv",
+      :invoices => "./data/invoices.csv",
+      :invoice_items => "./data/invoice_items.csv",
+      :transactions => "./data/transactions.csv",
+      :customers => "./data/customers.csv"
+    })
+
+    sa = SalesAnalyst.new(se)
+
+    result = sa.best_item_for_merchant(12334112)
+
+    assert result.kind_of?(Item)
+  end
+
 end
