@@ -18,7 +18,7 @@ The database consists of multiple repositories that contain all of the sales dat
 
 To use the analyst, each repository must load the data from each CSV file. There is a CSV file for each repository. Load the CSV files using the Sales Engine class:
 
-```
+```ruby
 se = SalesEngine.from_csv({
   :items => "./data/items.csv",
   :merchants => "./data/merchants.csv",
@@ -31,13 +31,13 @@ se = SalesEngine.from_csv({
 
 The business analytics are done in the Sales Analyst class. Create a new Sales Analyst class using the instance of the Sales Engine.
 
-```
+```ruby
 sa = SalesAnalyst.new(se)
 ```
 
 The Sales Analyst has many methods to calculate business analytics. For example, you can generate a list of merchant objects who are the top revenue earners using the top_revenue_earners method, where _x_ is the number of merchants you want to return:
 
-```
+```ruby
 sa.top_revenue_earners(3)
 
 #=> [merchant, merchant, merchant]
@@ -45,7 +45,7 @@ sa.top_revenue_earners(3)
 
 Another metric you can generate is the total revenue for a single merchant:
 
-```
+```ruby
 sa.revenue_by_merchant(merchant_id)
 
 #=> $$
